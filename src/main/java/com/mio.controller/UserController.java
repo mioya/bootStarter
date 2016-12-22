@@ -10,7 +10,7 @@ public class UserController {
 
     @RequestMapping("/")
     public String index(Model model) {
-        model.addAttribute("name", "spring boot from");
+        model.addAttribute("name", "sprinag boot from");
         return "index";
     }
 }
