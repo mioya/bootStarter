@@ -12,9 +12,22 @@ import java.nio.file.Paths;
 
 public class FileUtils {
 
+    public boolean exists(String filePathName) throws IOException {
+        Path path = Paths.get(filePathName);
+        checkIllegalFilePath(path);
+        return Files.exists(path);
+    }
+
+    public void upload(String filePathName) throws IOException {
+        Path path = Paths.get(filePathName);
+        checkIllegalFilePath(path);
+        Files.createFile(path);
+    }
+
     public void download(String filePathName) throws IOException {
         Path path = Paths.get(filePathName);
-        Files.createFile(path);
+        checkIllegalFilePath(path);
+        Files.readAllBytes(path);
     }
 
     public static void checkIllegalFilePath(Path path) {

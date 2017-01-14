@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Hello mio</title>
+</head>
+<body>
+<!--/* <xmp> */-->
+<h2>Hello!s </h2>
+<table class="tavle table-striped table-bordered table-condensde">
+    <tr th:each="user : ${users}">
+<td th:text="${user.id}">
+
+</td>
+
+    </tr>
+
+</table>
+<div>Thymeleaf version</div>
+</body>
+</html>
