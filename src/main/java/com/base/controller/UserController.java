@@ -6,8 +6,9 @@ import lombok.extern.apachecommons.CommonsLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,15 +26,30 @@ public class UserController {
         return "user/list";
     }
 
+    @RequestMapping(method = RequestMethod.POST)
+    @ResponseBody
+    public String save(@Validated User user, BindingResult result, Model model){
+        if(result.hasErrors()){
+            return list(model);
+        }
+        userRepository.save(user);
+        return "user/save";
+    }
+
+    @RequestMapping(value = "{id}", method = RequestMethod.POST)
+    @ResponseBody
+    public String update(@PathVariable String userId, @RequestBody User user){
+        User oldUser = userRepository.getOne(userId);
+        if(oldUser != null){
+            userRepository.save(user);
+        }
+        return "user/update";
+    }
+
     @RequestMapping("/")
     public String index(Model model) {
         model.addAttribute("name", "sprinag boot from");
         return "index";
     }
 
-    @RequestMapping("/test")
-    public String test(Model model) {
-        model.addAttribute("test", "test");
-        return "index";
-    }
 }
